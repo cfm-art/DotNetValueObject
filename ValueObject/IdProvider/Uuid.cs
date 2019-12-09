@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Cfm.Art.ValueObject.IdProvider
+namespace CfmArt.ValueObject.IdProvider
 {
     /// <summary>
     /// UUIDの生成

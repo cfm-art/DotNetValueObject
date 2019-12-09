@@ -1,6 +1,6 @@
 using System;
 
-namespace Cfm.Art.ValueObject
+namespace CfmArt.ValueObject
 {
     internal class RandomHolder
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Cfm.Art.ValueObject
+namespace CfmArt.ValueObject
 {
     /// <summary>ID</summary>
     public class Code<T>

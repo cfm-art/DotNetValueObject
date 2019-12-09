@@ -1,7 +1,7 @@
 using System;
-using Cfm.Art.ValueObject.IdProvider;
+using CfmArt.ValueObject.IdProvider;
 
-namespace Cfm.Art.ValueObject
+namespace CfmArt.ValueObject
 {
     internal interface IConverter<T>
     {

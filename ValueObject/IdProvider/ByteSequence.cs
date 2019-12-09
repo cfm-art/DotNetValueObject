@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace Cfm.Art.ValueObject.IdProvider
+namespace CfmArt.ValueObject.IdProvider
 {
     /// <summary>ID用バイト配列</summary>
     public abstract class ByteSequence
