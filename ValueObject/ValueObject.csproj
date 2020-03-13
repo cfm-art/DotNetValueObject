@@ -14,4 +14,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/cfm-art/DotNetValueObject</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CfmArt.Uuid" Version="0.0.2" />
+  </ItemGroup>
 </Project>
