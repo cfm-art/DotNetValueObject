@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 
 namespace CfmArt.ValueObject
 {
@@ -16,7 +17,7 @@ namespace CfmArt.ValueObject
         private Id() {}
 
         /// <summary></summary>
-        public string Value { get; private set; }
+        internal string Value { get; private set; }
 
         /// <summary>Guidで生成</summary>
         public static Id<T, Guid> New() => Id<T, Guid>.From(IdProvider.Uuid.NewUuid());
@@ -36,6 +37,12 @@ namespace CfmArt.ValueObject
         public static Id<T> From<U>(U value)
             => new Id<T>() { Value = Converter<U>.I.From(value) };
         
+        /// <summary>文字列から生成</summary>
+        public static Id<T> FromString(string value)
+            => Converter<string>.I.IsValid(value)
+                ? new Id<T>() { Value = value }
+                : throw new ArgumentException("");
+
         /// <summary>指定の型で空を生成</summary>
         public static Id<T> Empty<U>()
             => new Id<T>() { Value = Converter<U>.I.Empty() };
@@ -63,6 +70,9 @@ namespace CfmArt.ValueObject
         public bool Equals(Id<T> other) => other.Value == Value;
         /// <summary>比較</summary>
         public int CompareTo(Id<T> other) => Value.CompareTo(other.Value);
+
+        /// <summary>文字列表現</summary>
+        public override string ToString() => Value;
     }
 
     /// <summary>ID</summary>
@@ -74,12 +84,18 @@ namespace CfmArt.ValueObject
         private Id() {}
 
         /// <summary></summary>
-        public string Value { get; private set; }
+        internal string Value { get; private set; }
 
-        /// <summary></summary>
+        /// <summary>指定型から生成</summary>
         public static Id<T, U> From(U value)
             => new Id<T, U>() { Value = Converter<U>.I.From(value) };
         
+        /// <summary>文字列から生成</summary>
+        public static Id<T, U> FromString(string value)
+            => Converter<U>.I.IsValid(value)
+                ? new Id<T, U>() { Value = value }
+                : throw new ArgumentException("");
+
         /// <summary></summary>
         public static Id<T, U> Empty()
             => new Id<T, U>() { Value = Converter<U>.I.Empty() };
@@ -98,11 +114,15 @@ namespace CfmArt.ValueObject
                     ? o2.Value == Value
                     : false;
         
+        /// <summary>等価判定用</summary>
         public override int GetHashCode() => Value.GetHashCode();
 
         /// <summary>等値</summary>
         public bool Equals(Id<T, U> other) => other.Value == Value;
         /// <summary>比較</summary>
         public int CompareTo(Id<T, U> other) => Value.CompareTo(other.Value);
+
+        /// <summary>文字列表現の取得</summary>
+        public override string ToString() => Value;
     }
 }

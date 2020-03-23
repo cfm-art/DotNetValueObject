@@ -8,6 +8,7 @@ namespace CfmArt.ValueObject
         T To(string value);
         string From(T value);
         string Empty();
+        bool IsValid(string value);
     }
 
     internal class Converter<T>
@@ -90,50 +91,75 @@ namespace CfmArt.ValueObject
         string IConverter<Guid>.Empty() => From(Guid.Empty);
         Guid IConverter<Guid>.To(string value) => Guid.Parse(value);
         public string From(Guid value) => value.ToString().ToLower();
+        bool IConverter<Guid>.IsValid(string value) => Guid.TryParse(value, out var result);
 
         // --
         string IConverter<long>.Empty() => From(0L);
         long IConverter<long>.To(string value) => long.Parse(value);
         public string From(long value) => value.ToString();
+        bool IConverter<long>.IsValid(string value) => long.TryParse(value, out var result);
 
         // --
         string IConverter<ulong>.Empty() => From(0UL);
         ulong IConverter<ulong>.To(string value) => ulong.Parse(value);
         public string From(ulong value) => value.ToString();
+        bool IConverter<ulong>.IsValid(string value) => ulong.TryParse(value, out var result);
 
         // --
         string IConverter<decimal>.Empty() => From(0M);
         decimal IConverter<decimal>.To(string value) => decimal.Parse(value);
         public string From(decimal value) => value.ToString("0.########");
+        bool IConverter<decimal>.IsValid(string value) => decimal.TryParse(value, out var result);
 
         // --
         string IConverter<string>.Empty() => From(string.Empty);
         string IConverter<string>.To(string value) => value;
         public string From(string value) => value;
+        bool IConverter<string>.IsValid(string value) => !string.IsNullOrWhiteSpace(value);
 
         // --
         string IConverter<ByteSequence64>.Empty() => From(ByteSequence64.Empty());
         ByteSequence64 IConverter<ByteSequence64>.To(string value) => ByteSequence64.From(value);
         public string From(ByteSequence64 value) => value.ToString();
+        bool IConverter<ByteSequence64>.IsValid(string value)
+        {
+            try { ByteSequence64.From(value); return true; } catch { return false; }
+        }
 
         // --
         string IConverter<ByteSequence128>.Empty() => From(ByteSequence128.Empty());
         ByteSequence128 IConverter<ByteSequence128>.To(string value) => ByteSequence128.From(value);
         public string From(ByteSequence128 value) => value.ToString();
+        bool IConverter<ByteSequence128>.IsValid(string value)
+        {
+            try { ByteSequence128.From(value); return true; } catch { return false; }
+        }
 
         // --
         string IConverter<ByteSequence256>.Empty() => From(ByteSequence256.Empty());
         ByteSequence256 IConverter<ByteSequence256>.To(string value) => ByteSequence256.From(value);
         public string From(ByteSequence256 value) => value.ToString();
+        bool IConverter<ByteSequence256>.IsValid(string value)
+        {
+            try { ByteSequence256.From(value); return true; } catch { return false; }
+        }
 
         // --
         string IConverter<ByteSequence512>.Empty() => From(ByteSequence512.Empty());
         ByteSequence512 IConverter<ByteSequence512>.To(string value) => ByteSequence512.From(value);
         public string From(ByteSequence512 value) => value.ToString();
+        bool IConverter<ByteSequence512>.IsValid(string value)
+        {
+            try { ByteSequence512.From(value); return true; } catch { return false; }
+        }
 
         // --
         string IConverter<ByteSequence1024>.Empty() => From(ByteSequence1024.Empty());
         ByteSequence1024 IConverter<ByteSequence1024>.To(string value) => ByteSequence1024.From(value);
         public string From(ByteSequence1024 value) => value.ToString();
+        bool IConverter<ByteSequence1024>.IsValid(string value)
+        {
+            try { ByteSequence1024.From(value); return true; } catch { return false; }
+        }
     }
 }
